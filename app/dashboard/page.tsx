@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 export default async function Dashboard() {
@@ -24,12 +25,14 @@ export default async function Dashboard() {
       </h1>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className="border p-6 rounded-lg">
-          <h2 className="text-xl">Members</h2>
-          <p className="text-4xl font-bold">
-            {memberCount ?? 0}
-          </p>
-        </div>
+        <Link href="/members" className="block">
+          <div className="border p-6 rounded-lg cursor-pointer hover:bg-gray-900 transition">
+            <h2 className="text-xl">Members</h2>
+            <p className="text-4xl font-bold">
+              {memberCount ?? 0}
+            </p>
+          </div>
+        </Link>
 
         <div className="border p-6 rounded-lg">
           <h2 className="text-xl">Fumblings</h2>
@@ -38,12 +41,14 @@ export default async function Dashboard() {
           </p>
         </div>
 
-        <div className="border p-6 rounded-lg">
-          <h2 className="text-xl">Queries</h2>
-          <p className="text-4xl font-bold">
-            {queryCount ?? 0}
-          </p>
-        </div>
+        <Link href="/queries" className="block">
+          <div className="border p-6 rounded-lg cursor-pointer hover:bg-gray-900 transition">
+            <h2 className="text-xl">Queries</h2>
+            <p className="text-4xl font-bold">
+              {queryCount ?? 0}
+            </p>
+          </div>
+        </Link>
 
         <div className="border p-6 rounded-lg">
           <h2 className="text-xl">Disciplinary Actions</h2>
