@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import ResponseForm from "@/components/queries/ResponseForm";
 
 export default async function QueryProfile({
   params,
@@ -37,6 +38,11 @@ export default async function QueryProfile({
     );
   }
 
+  const existingResponse =
+    responses && responses.length > 0
+      ? responses[0].response_text
+      : undefined;
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="flex justify-between items-center mb-8">
@@ -71,16 +77,12 @@ export default async function QueryProfile({
 
           <div>
             <p className="text-gray-400">Date Issued</p>
-            <p>
-              {query.date_issued}
-            </p>
+            <p>{query.date_issued}</p>
           </div>
 
           <div>
             <p className="text-gray-400">Deadline</p>
-            <p>
-              {query.deadline}
-            </p>
+            <p>{query.deadline}</p>
           </div>
         </div>
       </div>
@@ -89,7 +91,7 @@ export default async function QueryProfile({
         Responses
       </h2>
 
-      <div className="space-y-4">
+      <div className="space-y-4 mb-10">
         {responses && responses.length > 0 ? (
           responses.map((response) => (
             <div
@@ -101,9 +103,7 @@ export default async function QueryProfile({
               </p>
 
               <p className="text-sm text-gray-400">
-                Submitted:
-                {" "}
-                {response.submitted_at}
+                Submitted: {response.submitted_at}
               </p>
             </div>
           ))
@@ -116,26 +116,10 @@ export default async function QueryProfile({
         )}
       </div>
 
-      <div className="mt-10 border rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">
-          Submit Response
-        </h2>
-
-        <form>
-          <textarea
-            name="response"
-            className="w-full bg-black border rounded-lg p-4 min-h-[150px]"
-            placeholder="Enter your response..."
-          />
-
-          <button
-            type="submit"
-            className="mt-4 border px-6 py-2 rounded hover:bg-gray-900"
-          >
-            Submit Response
-          </button>
-        </form>
-      </div>
+      <ResponseForm
+        queryId={query.id}
+        existingResponse={existingResponse}
+      />
     </main>
   );
 }
