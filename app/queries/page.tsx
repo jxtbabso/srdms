@@ -19,14 +19,27 @@ export default async function QueriesPage() {
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-5xl font-bold">Queries</h1>
+        <div>
+          <h1 className="text-5xl font-bold">
+            Queries
+          </h1>
+        </div>
 
-        <Link
-          href="/dashboard"
-          className="border px-4 py-2 rounded hover:bg-gray-900"
-        >
-          Dashboard
-        </Link>
+        <div className="flex gap-4">
+          <Link
+            href="/queries/new"
+            className="border px-4 py-2 rounded hover:bg-gray-900"
+          >
+            Issue Query
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className="border px-4 py-2 rounded hover:bg-gray-900"
+          >
+            Dashboard
+          </Link>
+        </div>
       </div>
 
       <div className="space-y-6">
