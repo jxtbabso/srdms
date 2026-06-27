@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import ResponseForm from "@/components/queries/ResponseForm";
+import ExecutiveReviewPanel from "@/components/queries/ExecutiveReviewPanel";
 
 export default async function QueryProfile({
   params,
@@ -70,18 +71,22 @@ export default async function QueryProfile({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <p className="text-gray-400">Status</p>
-            <p className="font-semibold">
-              {query.status}
+            <p className="font-semibold capitalize">
+              {query.status.replaceAll("_", " ")}
             </p>
           </div>
 
           <div>
-            <p className="text-gray-400">Date Issued</p>
+            <p className="text-gray-400">
+              Date Issued
+            </p>
             <p>{query.date_issued}</p>
           </div>
 
           <div>
-            <p className="text-gray-400">Deadline</p>
+            <p className="text-gray-400">
+              Deadline
+            </p>
             <p>{query.deadline}</p>
           </div>
         </div>
@@ -103,7 +108,11 @@ export default async function QueryProfile({
               </p>
 
               <p className="text-sm text-gray-400">
-                Submitted: {response.submitted_at}
+                Submitted:
+                {" "}
+                {new Date(
+                  response.submitted_at
+                ).toLocaleString()}
               </p>
             </div>
           ))
@@ -116,10 +125,18 @@ export default async function QueryProfile({
         )}
       </div>
 
-      <ResponseForm
-        queryId={query.id}
-        existingResponse={existingResponse}
-      />
+      <div className="space-y-8">
+        <ResponseForm
+          queryId={query.id}
+          existingResponse={existingResponse}
+        />
+
+        {query.status === "responded" && (
+          <ExecutiveReviewPanel
+            queryId={query.id}
+          />
+        )}
+      </div>
     </main>
   );
 }
